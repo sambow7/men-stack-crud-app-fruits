@@ -36,3 +36,7 @@ The above code would allow an application to access the SECRET_NUMBER, and PASSW
 // models/fruit.js
 
 const mongoose = require("mongoose");
+
+### The show route
+
+- The :fruitId in the URL is a variable segment, known as a URL parameter. It allows our route to dynamically handle requests for different fruits by their unique IDs. So, whenever a user wants to view details about a particular fruit, they will navigate to a URL like /fruits/12345, where 12345 is the fruit’s ID.
