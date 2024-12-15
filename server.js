@@ -1,28 +1,37 @@
 
 const express = require('express');
-const dotenv = require("dotenv");
-dotenv.config(); // Loads the environment variables from .env file
+const methodOverride = require('method-override');
 const mongoose = require("mongoose");
+const morgan = require("morgan");
+const dotenv = require("dotenv");
+dotenv.config();// Loads the environment variables from .env file
 const app = express();
 
-//Defining connection string
+// DB connection
 mongoose.connect(process.env.MONGO_URI);
 
 mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
-// Import the Fruit model
+
+// Import the Fruit model (database)
 const Fruit = require("./models/fruit.js");
 
 ~~~~~~~~~~~~~~~~
-//Middleware
+// Middleware
 ~~~~~~~~~~~~~~~~
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride("_method"));
+// app.use(morgan("dev"));
+
+~~~~~~~~~~~~~~~~
+// ROUTE
+~~~~~~~~~~~~~~~~
 
 // GET
 app.get("/", async (req, res) => {
-  res.send("index");
+  res.render("/views/index.ejs");
 });
 
 app.get("/fruits", async (req, res) => {
@@ -58,8 +67,6 @@ app.post("/fruits", async (req, res) => {
   res.redirect("/fruits"); // redirect to index fruits
 });
 
-
-
 // PUT
 app.put("/fruits/:fruitId", async (req, res) => {
   if (req.body.isReadyToEat === "on") {
@@ -71,15 +78,19 @@ app.put("/fruits/:fruitId", async (req, res) => {
   res.redirect(`/fruits/${req.params.fruitId}`);
 });
 
+// EDIT
+app.get("/fruits/:fruitId/edit", async (req, res) => {
+  const foundFruit = await Fruit.findById(req.params.fruitId);
+  res.render("fruits/edit.ejs", {
+    fruit: foundFruit,
+  });
+})
+
 // DELETE
 app.delete("/fruits/:fruitId", async (req, res) => {
   await Fruit.findByIdAndDelete(req.params.fruitId);
   res.redirect("/fruits");
 });
-
-
-
-
 
 // Listening to the server
 
