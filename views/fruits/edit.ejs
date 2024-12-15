@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
-</head>
+  </head>
 
-<body>
-    <!-- update the header -->
+  <body>
     <h1>Edit <%= fruit.name %></h1>
     <form action="/fruits/<%=fruit._id%>?_method=PUT" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" name="name" value="<%= fruit.name %>" />
+      <label for="name">Name:</label>
+      <input type="text" name="name" value="<%= fruit.name %>" />
       
-        <label for="price">Price:</label>
-        <input type="number" name="price" id="price" value="<%= fruit.price %>" />
-        
-        <label for="isReadyToEat">Ready to Eat?</label>
-        <input type="checkbox" name="isReadyToEat" <% if (fruit.isReadyToEat) { %>checked<% } %> >
+      <label for="price">Price:</label>
+      <input type="number" name="price" id="price" value="<%= fruit.price %>" />
+
+      <div class="checkbox-div">
+        <label for="ready-to-eat">Ready to Eat?</label>
+        <input type="checkbox" name="isReadyToEat" id="ready-to-eat" />
+      </div>
       
-        <button type="submit">Update Fruit</button>
-      </form>
-    <a href="/fruits">Back to Fruits</a>
+      <button type="submit">Update Fruit</button>
+    </form>
+    <a class="fruits-index-link" href="/fruits">
+      <a class="fruits-index-link" href="/fruits">
+        <div class="index-link-text">Back to Fruits</div>
+      </a>
+    </a>
   </body>
 </html>

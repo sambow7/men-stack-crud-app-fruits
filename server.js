@@ -6,14 +6,13 @@ const morgan = require("morgan");
 const dotenv = require("dotenv");
 dotenv.config();// Loads the environment variables from .env file
 const app = express();
+const path = require('path');
 
 // DB connection
 mongoose.connect(process.env.MONGO_URI);
-
 mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
-
 
 // Import the Fruit model (database)
 const Fruit = require("./models/fruit.js");
@@ -24,11 +23,11 @@ const Fruit = require("./models/fruit.js");
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(morgan("dev"));
+app.use(express.static(path.join(__dirname, "public")));
 
 ~~~~~~~~~~~~~~~~
 // ROUTE
 ~~~~~~~~~~~~~~~~
-
 // GET
 app.get("/", (req, res) => {
   res.render("/views/index.ejs");

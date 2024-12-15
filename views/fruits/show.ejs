@@ -1,5 +1,3 @@
-<!-- views/fruits/show.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,9 +33,9 @@
               </form>
               <!-- add edit page link here -->
               <a href="/fruits/<%= fruit._id %>/edit">Edit <%= fruit.name %></a>
-              <a href="/fruits">Back to Fruits</a>
-
-
+              <a class="fruits-index-link" href="/fruits">
+                <div class="index-link-text">Back to Fruits</div>
+              </a>
 </body>
 
 </html>
