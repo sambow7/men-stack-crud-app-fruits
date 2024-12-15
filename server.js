@@ -26,11 +26,11 @@ app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "public")));
 
 ~~~~~~~~~~~~~~~~
-// ROUTE
+// ROUTE   C.R.U.D.
 ~~~~~~~~~~~~~~~~
 // GET
 app.get("/", (req, res) => {
-  res.render("/views/index.ejs");
+  res.render("index.ejs");
 });
 
 // GET (index) 
@@ -45,7 +45,7 @@ app.get('/fruits/new', (req, res) => {
   res.render('fruits/new.ejs')
 });
 
-// POST (create) 
+// POST (create)
 app.post("/fruits", async (req, res) => {
   if (req.body.isReadyToEat === "on") {
     req.body.isReadyToEat = true;
@@ -56,7 +56,7 @@ app.post("/fruits", async (req, res) => {
   res.redirect("/fruits"); // redirect to index fruits
 });
 
-// GET (show) 
+// GET (show)
 app.get("/fruits/:fruitId", async (req, res) => {
   const foundFruit = await Fruit.findById(req.params.fruitId);
   res.render("fruits/show.ejs", { fruit: foundFruit });
