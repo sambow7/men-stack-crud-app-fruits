@@ -23,40 +23,30 @@ const Fruit = require("./models/fruit.js");
 ~~~~~~~~~~~~~~~~
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
-// app.use(morgan("dev"));
+app.use(morgan("dev"));
 
 ~~~~~~~~~~~~~~~~
 // ROUTE
 ~~~~~~~~~~~~~~~~
 
 // GET
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
   res.render("/views/index.ejs");
 });
 
+// GET (index) 
 app.get("/fruits", async (req, res) => {
   const allFruits = await Fruit.find();
   // console.log(allFruits);
   res.render("fruits/index.ejs", { fruits: allFruits });
 });
 
+// GET (new)
 app.get('/fruits/new', (req, res) => {
   res.render('fruits/new.ejs')
 });
 
-app.get("/fruits/:fruitId", async (req, res) => {
-  const foundFruit = await Fruit.findById(req.params.fruitId);
-  res.render("fruits/show.ejs", { fruit: foundFruit });
-});
-
-app.get("/fruits/:fruitId/edit", async (req, res) => {
-  const foundFruit = await Fruit.findById(req.params.fruitId);
-  res.render("fruits/edit.ejs", {
-    fruit: foundFruit,
-  });
-});
-
-// POST
+// POST (create) 
 app.post("/fruits", async (req, res) => {
   if (req.body.isReadyToEat === "on") {
     req.body.isReadyToEat = true;
@@ -67,7 +57,21 @@ app.post("/fruits", async (req, res) => {
   res.redirect("/fruits"); // redirect to index fruits
 });
 
-// PUT
+// GET (show) 
+app.get("/fruits/:fruitId", async (req, res) => {
+  const foundFruit = await Fruit.findById(req.params.fruitId);
+  res.render("fruits/show.ejs", { fruit: foundFruit });
+});
+
+// GET (edit) 
+app.get("/fruits/:fruitId/edit", async (req, res) => {
+  const foundFruit = await Fruit.findById(req.params.fruitId);
+  res.render("fruits/edit.ejs", {
+    fruit: foundFruit,
+  });
+});
+
+// PUT (update)
 app.put("/fruits/:fruitId", async (req, res) => {
   if (req.body.isReadyToEat === "on") {
     req.body.isReadyToEat = true;
@@ -78,23 +82,16 @@ app.put("/fruits/:fruitId", async (req, res) => {
   res.redirect(`/fruits/${req.params.fruitId}`);
 });
 
-// EDIT
-app.get("/fruits/:fruitId/edit", async (req, res) => {
-  const foundFruit = await Fruit.findById(req.params.fruitId);
-  res.render("fruits/edit.ejs", {
-    fruit: foundFruit,
-  });
-})
-
-// DELETE
+// DELETE (delete) 
 app.delete("/fruits/:fruitId", async (req, res) => {
   await Fruit.findByIdAndDelete(req.params.fruitId);
   res.redirect("/fruits");
 });
 
-// Listening to the server
-
+~~~~~~~~~~~~~~~~
+// LISTENING ON PORT 3000
+~~~~~~~~~~~~~~~~
 app.listen(3000, () => {
-  console.log('🎧 Port 3000');
+  console.log('🎧 PORT 3000');
 });
 
