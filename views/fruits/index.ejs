@@ -6,21 +6,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/stylesheets/style.css" />
   <title>Fruits Index</title>
+
 </head>
 
 <body>
+  <!-- Dark Mode Toggle Button -->
+  <button id="darkModeToggle" style="margin: 20px;">Toggle Dark Mode 🌙</button>
+
+  <script>
+    const toggleButton = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      body.classList.add('dark-mode');
+    }
+
+    toggleButton.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+
+
+      if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    });
+  </script>
   <div class="index-header-div">
     <h1>All Fruits</h1>
     <a class="add-fruit" href="/fruits/new">Add fruit</a>
   </div>
   <ul>
     <% fruits.forEach((fruit)=> { %>
-    <li>
-      <a class="fruit-cards" href="/fruits/<%=fruit._id%>">
-        <%= fruit.name %>
-      </a>
-    </li>
-    <% }) %>
+      <li>
+        <a class="fruit-cards" href="/fruits/<%=fruit._id%>">
+          <%= fruit.name %>
+        </a>
+      </li>
+      <% }) %>
   </ul>
 </body>
 

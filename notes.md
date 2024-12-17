@@ -76,3 +76,6 @@ const mongoose = require("mongoose");
 - The Edit form needs to make a PUT request to /fruits/:fruitID in the same way that the New form needs to make a POST request to /fruits.
 
 - Remember, that browsers don’t support PUT requests, so we will use the same method-override middleware as we did with the delete route. We’ll append ?_method=PUT to the end of our action URL:
+
+
+Queries are important. 

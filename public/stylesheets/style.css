@@ -230,3 +230,74 @@ img {
 
 
 
+/* Default Light Mode Variables */
+:root {
+  --background-color: #fff8ed;
+  --text-color: #000;
+  --link-color: #f47b5b;
+  --container-bg: #ffbd59;
+  --button-bg: #3f6a51;
+  --button-hover: #769642;
+  --card-bg: #fff;
+  --card-border: #ffbd59;
+}
+
+/* Dark Mode Variables */
+.dark-mode {
+  --background-color: #121212;
+  --text-color: #e0e0e0;
+  --link-color: #1e90ff;
+  --container-bg: #1e1e1e;
+  --button-bg: #3f6a51;
+  --button-hover: #769642;
+  --card-bg: #292929;
+  --card-border: #555;
+}
+
+/* Apply Variables Globally */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: "DM Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 100vw;
+}
+
+h1 {
+  color: var(--link-color);
+}
+
+a {
+  color: var(--link-color);
+}
+
+footer {
+  background-color: var(--container-bg);
+  color: var(--text-color);
+}
+
+.index-link-text,
+button,
+.edit-text {
+  background-color: var(--button-bg);
+  color: var(--text-color);
+}
+
+.index-link-text:hover,
+button:hover,
+.edit-text:hover {
+  background-color: var(--button-hover);
+}
+
+.fruit-cards {
+  background-color: var(--card-bg);
+  border: 2px solid var(--card-border);
+  color: var(--text-color);
+}
+
+.fruit-cards:hover {
+  border-color: var(--link-color);
+}
